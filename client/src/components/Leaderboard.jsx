@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import axios from "../utils/axios"; 
 import "./Leaderboard.css";
 
 function Leaderboard() {
@@ -9,7 +9,7 @@ function Leaderboard() {
     const fetchLeaderboard = async () => {
       try {
         const token = localStorage.getItem('token');
-        const res = await axios.get('http://localhost:5000/api/leaderboard', {
+        const res = await axios.get('/leaderboard', {
           headers: { 'x-auth-token': token }
         });
         setLeaderboard(res.data);

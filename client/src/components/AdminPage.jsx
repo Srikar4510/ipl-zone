@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import axios from "../utils/axios"; 
+
 import "./AdminPage.css";
 
 function AdminPage() {
@@ -18,7 +19,7 @@ function AdminPage() {
     e.preventDefault();
     try {
       const token = localStorage.getItem('token');
-      await axios.post(`http://localhost:5000/api/admin/match/${matchId}/update`, results, {
+      await axios.post(`/admin/match/${matchId}/update`, results, {
         headers: { 'x-auth-token': token }
       });
       alert('Results updated and points calculated!');

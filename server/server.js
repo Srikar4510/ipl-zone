@@ -9,9 +9,14 @@ const app = express();
 // Connect to MongoDB
 connectDB();
 
+const corsOptions = {
+    origin: ['https://ipl-zone.netlify.app/'], 
+    credentials: true
+  };
+  
 // Middleware
 app.use(express.json());
-app.use(cors());
+app.use(cors(corsOptions));
 
 // Define routes
 app.use('/api/auth', require('./routes/auth'));

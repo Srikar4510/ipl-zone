@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import axios from "../utils/axios"; // adjust the path
 import "./AdminPredictions.css";
 
 const AdminPredictions = () => {
@@ -10,7 +10,7 @@ const AdminPredictions = () => {
 
   const fetchPredictions = async () => {
     try {
-      const res = await axios.get(`http://localhost:5000/api/admin/match/${matchId}/predictions`, {
+      const res = await axios.get(`/admin/match/${matchId}/predictions`, {
         headers: { 'x-auth-token': token }
       });
       setPredictions(res.data);

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import axios from "../utils/axios"; 
 import "./Home.css";
 
 const Home = () => {
@@ -14,7 +14,7 @@ const Home = () => {
   const fetchSchedule = async (page = 1) => {
     setLoading(true);
     try {
-      const res = await axios.get(`http://localhost:5000/api/schedule?page=${page}&limit=3`);
+      const res = await axios.get(`/schedule?page=${page}&limit=3`);
       if (page === 1) {
         setScheduleData(res.data);
       } else {

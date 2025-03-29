@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import axios from "../utils/axios"; // adjust the path
+
 import "./AdminUsers.css";
 
 const AdminUsers = () => {
@@ -7,7 +8,7 @@ const AdminUsers = () => {
   const token = localStorage.getItem('token');
 
   const fetchUsers = () => {
-    axios.get('http://localhost:5000/api/admin/users', {
+    axios.get('/admin/users', {
       headers: { 'x-auth-token': token }
     })
     .then(res => setUsers(res.data))
@@ -21,7 +22,7 @@ const AdminUsers = () => {
   const deleteUser = async (userId) => {
     if(window.confirm("Are you sure you want to delete this user?")) {
       try {
-        await axios.delete(`http://localhost:5000/api/admin/user/${userId}`, {
+        await axios.delete(`/admin/user/${userId}`, {
           headers: { 'x-auth-token': token }
         });
         fetchUsers();

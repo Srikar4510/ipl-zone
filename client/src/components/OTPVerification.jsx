@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import axios from "../utils/axios"; 
 import { useNavigate } from 'react-router-dom';
 import "./OTPVerification.css";
 
@@ -12,7 +12,7 @@ const OTPVerification = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:5000/api/auth/verify-otp', { email, otp });
+      const res = await axios.post('/auth/verify-otp', { email, otp });
       localStorage.setItem('token', res.data.token);
       navigate('/');
     } catch (err) {

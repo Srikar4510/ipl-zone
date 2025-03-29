@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import axios from "../utils/axios"; 
 import { useParams, useNavigate } from 'react-router-dom';
 import "./MatchPrediction.css";
 
@@ -19,7 +19,7 @@ function MatchPrediction() {
     const fetchMatch = async () => {
       try {
         const token = localStorage.getItem('token');
-        const res = await axios.get(`http://localhost:5000/api/match/${matchId}`, {
+        const res = await axios.get(`/match/${matchId}`, {
           headers: { 'x-auth-token': token }
         });
         setMatch(res.data);

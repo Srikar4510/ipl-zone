@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import axios from "../utils/axios"; 
 import { useNavigate, Link } from 'react-router-dom';
 import "./AuthForm.css"; // Or AuthForm.css
 
@@ -22,7 +22,7 @@ function Signup() {
     }
     try {
       const { username, email, password } = formData;
-      const res = await axios.post('http://localhost:5000/api/auth/signup', { email, password, username });
+      const res = await axios.post('/auth/signup', { email, password, username });
       setMessage(res.data.msg);
       localStorage.setItem('signupEmail', email);
       navigate('/verify-otp');
