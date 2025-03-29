@@ -1,0 +1,17 @@
+.app-footer {
+  background-color: #1e3c72;
+  color: white;
+  text-align: center;
+  padding: 16px 0;
+  font-size: 14px;
+  margin-top: auto;
+}
+
+  
+  @media (max-width: 600px) {
+    .app-footer {
+      font-size: 12px;
+      padding: 12px 0;
+    }
+  }
+  

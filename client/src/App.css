@@ -1,0 +1,86 @@
+/* Global Base */
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f5f6f8;
+  color: #111;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+  padding-bottom: 2rem;
+}
+
+/* Footer */
+.app-footer {
+  background-color: #1e3c72;
+  color: white;
+  text-align: center;
+  padding: 16px 0;
+  font-size: 14px;
+  margin-top: auto;
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* DARK MODE */
+.App.dark {
+  background-color: #1c1c1c;
+  color: #f0f0f0;
+}
+
+.App.dark .app-footer {
+  background-color: #111;
+  color: #ccc;
+}
+
+/* Optionally scope navbar, buttons, etc., for dark mode */
+.App.dark .navbar {
+  background-color: #111;
+}
+
+.App.dark .nav-link,
+.App.dark .logout-button {
+  color: #eee;
+}
+
+.App.dark .nav-link:hover,
+.App.dark .logout-button:hover {
+  background-color: #222;
+}
+
+/* Responsive Footer Stick */
+.app-footer {
+  position: relative;
+  bottom: 0;
+  width: 100%;
+}
+
+/* Pastel Theme (future use) */
+.App.pastel {
+  background-color: #fef6e4;
+  color: #2b2b2b;
+}
+
+.App.pastel .app-footer {
+  background-color: #ffd9c0;
+  color: #333;
+}
+
+/* IPL Colors (future use) */
+.App.ipl {
+  background-image: linear-gradient(to right, #002366, #b22222);
+  color: white;
+}
+
+.App.ipl .app-footer {
+  background: #002366;
+  color: #ffd700;
+}

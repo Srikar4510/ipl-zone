@@ -1,0 +1,75 @@
+.table-container {
+  max-width: 800px;
+  margin: 3rem auto;
+  padding: 2rem;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  overflow-x: auto;
+}
+
+.table-container h2 {
+  text-align: center;
+  font-size: 2rem;
+  color: #2c3e50;
+  margin-bottom: 1.5rem;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 400px;
+}
+
+th, td {
+  padding: 14px 18px;
+  border-bottom: 1px solid #eee;
+  text-align: center;
+  font-size: 16px;
+}
+
+th {
+  background: #2c5364;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+tr:hover {
+  background-color: #eef2f7;
+  transition: 0.3s;
+}
+
+/* Rank-specific styling */
+tbody tr:nth-child(1) td:first-child {
+  color: gold;
+  font-weight: bold;
+}
+tbody tr:nth-child(2) td:first-child {
+  color: silver;
+  font-weight: bold;
+}
+tbody tr:nth-child(3) td:first-child {
+  color: #cd7f32; /* bronze */
+  font-weight: bold;
+}
+
+/* Responsive fix */
+@media (max-width: 600px) {
+  th, td {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .table-container {
+    padding: 1rem;
+  }
+
+  .table-container h2 {
+    font-size: 1.5rem;
+  }
+}
