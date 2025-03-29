@@ -23,36 +23,33 @@ const adminAuth = (req, res, next) => {
 // Update match results and recalculate points for predictions.
 router.post('/match/:matchId/update', adminAuth, async (req, res) => {
   const { matchId } = req.params;
-  // The admin can send either a single string or an array for these fields.
   const { winner, mostSixes, mostFours, mostWickets, playerOfTheMatch } = req.body;
+
+  // Helper function: if correctAnswer is an array, return true if predAnswer is in the array.
+  // Otherwise, do a direct comparison.
+  const isCorrect = (predAnswer, correctAnswer) => {
+    if (Array.isArray(correctAnswer)) {
+      return correctAnswer.includes(predAnswer);
+    }
+    return predAnswer === correctAnswer;
+  };
+
   try {
     let match = null;
-    // Try to find match by ObjectId if valid.
+    // First, try to find the match using a Mongo ObjectId.
     if (mongoose.Types.ObjectId.isValid(matchId)) {
       match = await Match.findById(matchId);
     }
-    // If not found, try to find by scheduleId (converted to Number)
+    // If not found, treat matchId as a schedule id (a number)
     if (!match) {
       match = await Match.findOne({ scheduleId: Number(matchId) });
     }
     if (!match) return res.status(404).json({ msg: 'Match not found' });
 
-    // Update the results field with admin-provided answers
+    // Update the results field with admin's input
     match.results = { winner, mostSixes, mostFours, mostWickets, playerOfTheMatch };
 
-    // Helper function to check correctness.
-    // If the admin supplied an array, check if the user's answer is included.
-    // Otherwise, compare directly.
-    const isCorrect = (predAnswer, correctAnswer) => {
-      if (Array.isArray(correctAnswer)) {
-        return correctAnswer.includes(predAnswer);
-      }
-      return predAnswer === correctAnswer;
-    };
-
-    // Recalculate points for each prediction.
-    // Winner (50 points) and Player of the Match (20 points) are compared directly.
-    // For the other categories, we use the helper function.
+    // Recalculate points for each prediction
     for (let i = 0; i < match.predictions.length; i++) {
       let pred = match.predictions[i];
       let points = 0;
@@ -63,7 +60,7 @@ router.post('/match/:matchId/update', adminAuth, async (req, res) => {
       if (pred.playerOfTheMatch === playerOfTheMatch) points += 20;
       pred.points = points;
     }
-    
+
     // Mark the predictions array as modified and save the match.
     match.markModified('predictions');
     const updatedMatch = await match.save();
@@ -73,6 +70,7 @@ router.post('/match/:matchId/update', adminAuth, async (req, res) => {
     res.status(500).send('Server error');
   }
 });
+
 
 
 // GET /api/admin/users - Return all non-admin users with email, username, and role.

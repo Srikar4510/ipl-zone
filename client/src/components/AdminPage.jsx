@@ -15,9 +15,10 @@ function AdminPage() {
   const onChange = e => setResults({ ...results, [e.target.name]: e.target.value });
 
   // Helper function: if value contains a comma, split into an array.
+  // Otherwise, return the value as is.
   const parseValue = (value) => {
     if (value.includes(',')) {
-      return value.split(',').map(v => v.trim()).filter(v => v);
+      return value.split(',').map(v => v.trim()).filter(v => v !== '');
     }
     return value;
   };
@@ -26,7 +27,7 @@ function AdminPage() {
     e.preventDefault();
     try {
       const token = localStorage.getItem('token');
-      // Convert comma-separated values into arrays for tied categories.
+      // Convert tied values into arrays if comma separated.
       const newResults = {
         winner: results.winner,
         mostSixes: parseValue(results.mostSixes),
