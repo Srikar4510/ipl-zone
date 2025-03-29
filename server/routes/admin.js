@@ -23,20 +23,31 @@ const adminAuth = (req, res, next) => {
 // Update match results and recalculate points for predictions.
 router.post('/match/:matchId/update', adminAuth, async (req, res) => {
   const { matchId } = req.params;
-  const { winner, mostSixes, mostFours, mostWickets, playerOfTheMatch } = req.body;
+  let { winner, mostSixes, mostFours, mostWickets, playerOfTheMatch } = req.body;
 
-  // Helper function: if correctAnswer is an array, return true if predAnswer is in the array.
-  // Otherwise, do a direct comparison.
+  // Convert tied fields to string if they are arrays.
+  if (Array.isArray(mostSixes)) {
+    mostSixes = mostSixes.join(', ');
+  }
+  if (Array.isArray(mostFours)) {
+    mostFours = mostFours.join(', ');
+  }
+  if (Array.isArray(mostWickets)) {
+    mostWickets = mostWickets.join(', ');
+  }
+
+  // Helper function: if correctAnswer contains commas, split it into an array and check inclusion.
   const isCorrect = (predAnswer, correctAnswer) => {
-    if (Array.isArray(correctAnswer)) {
-      return correctAnswer.includes(predAnswer);
+    if (correctAnswer.includes(',')) {
+      const arr = correctAnswer.split(',').map(a => a.trim());
+      return arr.includes(predAnswer);
     }
     return predAnswer === correctAnswer;
   };
 
   try {
     let match = null;
-    // First, try to find the match using a Mongo ObjectId.
+    // Try to find the match using a Mongo ObjectId.
     if (mongoose.Types.ObjectId.isValid(matchId)) {
       match = await Match.findById(matchId);
     }
@@ -46,7 +57,7 @@ router.post('/match/:matchId/update', adminAuth, async (req, res) => {
     }
     if (!match) return res.status(404).json({ msg: 'Match not found' });
 
-    // Update the results field with admin's input
+    // Update the results field with admin's input (all as strings)
     match.results = { winner, mostSixes, mostFours, mostWickets, playerOfTheMatch };
 
     // Recalculate points for each prediction
@@ -61,7 +72,7 @@ router.post('/match/:matchId/update', adminAuth, async (req, res) => {
       pred.points = points;
     }
 
-    // Mark the predictions array as modified and save the match.
+    // Mark predictions as modified and save match.
     match.markModified('predictions');
     const updatedMatch = await match.save();
     res.json(updatedMatch);
@@ -70,6 +81,7 @@ router.post('/match/:matchId/update', adminAuth, async (req, res) => {
     res.status(500).send('Server error');
   }
 });
+
 
 
 
