@@ -38,7 +38,7 @@ function MatchPrediction() {
     e.preventDefault();
     try {
       const token = localStorage.getItem('token');
-      await axios.post(`http://localhost:5000/api/match/predict/${matchId}`, formData, {
+      await axios.post(`/match/predict/${matchId}`, formData, {
         headers: { 'x-auth-token': token }
       });
       alert('Prediction submitted!');
