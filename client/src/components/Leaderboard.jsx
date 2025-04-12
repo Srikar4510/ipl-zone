@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from "../utils/axios"; 
+import axios from "../utils/axios";
 import "./Leaderboard.css";
 
 function Leaderboard() {
@@ -29,6 +29,7 @@ function Leaderboard() {
             <th>Rank</th>
             <th>Username</th>
             <th>Total Points</th>
+            <th>Average Points</th>
           </tr>
         </thead>
         <tbody>
@@ -37,6 +38,7 @@ function Leaderboard() {
               <td>{index + 1}</td>
               <td>{user.username}</td>
               <td>{user.totalPoints}</td>
+              <td>{user.averagePoints}</td>
             </tr>
           ))}
         </tbody>
