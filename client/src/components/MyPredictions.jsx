@@ -36,7 +36,7 @@ function MyPredictions() {
           <thead>
             <tr>
               <th>Match</th>
-              <th>Date</th>
+             
               <th>Prediction</th>
               <th>Points</th>
               <th>Actual Result</th>
@@ -46,7 +46,7 @@ function MyPredictions() {
             {predictions.map((pred, index) => (
               <tr key={index}>
                 <td>{pred.teams}</td>
-                <td>{new Date(pred.date).toLocaleString()}</td>
+                
                 <td>
                   <div><strong>Winner:</strong> {pred.prediction.winner}</div>
                   <div><strong>Most Sixes:</strong> {pred.prediction.mostSixes}</div>
