@@ -9,6 +9,7 @@ import MatchPrediction from './components/MatchPrediction';
 import AdminPage from './components/AdminPage';
 import AdminUsers from './components/AdminUsers';
 import AdminPredictions from './components/AdminPredictions';
+import MyPredictions from './components/MyPredictions';
 import Leaderboard from './components/Leaderboard';
 import Footer from './components/Footer';
 import './App.css';
@@ -40,6 +41,7 @@ function App() {
             <Route path="/signup" element={<Signup />} />
             <Route path="/verify-otp" element={<OTPVerification />} />
             <Route path="/match/:matchId" element={<MatchPrediction />} />
+            <Route path="/mypredictions" element={<MyPredictions />} />
             <Route path="/admin" element={<AdminPage />} />
             <Route path="/admin/users" element={<AdminUsers />} />
             <Route path="/admin/predictions" element={<AdminPredictions />} />

@@ -10,7 +10,8 @@ const app = express();
 connectDB();
 
 const corsOptions = {
-    origin: ['https://ipl-zone.netlify.app'], 
+  //  origin: ['http://localhost:3000'], 
+   origin: ['https://ipl-zone.netlify.app'], 
     credentials: true
   };
   
@@ -24,7 +25,7 @@ app.use('/api/match', require('./routes/match'));
 app.use('/api/schedule', require('./routes/schedule'));
 app.use('/api/admin', require('./routes/admin'));
 app.use('/api/leaderboard', require('./routes/leaderboard'));
-
+app.use('/api/mypredictions', require('./routes/userPredictions'));
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));

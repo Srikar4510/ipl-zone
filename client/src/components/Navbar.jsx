@@ -71,6 +71,7 @@ const Navbar = () => {
           <>
             <li><Link to="/" className="nav-link" onClick={toggleMenu}>Home</Link></li>
             <li><Link to="/leaderboard" className="nav-link" onClick={toggleMenu}>Leaderboard</Link></li>
+            <li><Link to="/mypredictions" className="nav-link" onClick={toggleMenu}>My predictions</Link></li>
             <li><button onClick={() => { toggleMenu(); logout(); }} className="nav-link logout-button">Logout</button></li>
           </>
         );
