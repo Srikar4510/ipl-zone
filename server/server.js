@@ -10,8 +10,8 @@ const app = express();
 connectDB();
 
 const corsOptions = {
-  //  origin: ['http://localhost:3000'], 
-   origin: ['https://ipl-zone.netlify.app'], 
+     //origin: ['http://localhost:3000'], 
+origin: ['https://ipl-zone.netlify.app'], 
     credentials: true
   };
   

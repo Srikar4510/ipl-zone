@@ -6,6 +6,9 @@ import "./MatchPrediction.css";
 function MatchPrediction() {
   const { matchId } = useParams();
   const [match, setMatch] = useState(null);
+  const [showPopup, setShowPopup] = useState(false);
+  const [popupType, setPopupType] = useState("success");
+  const [popupText, setPopupText] = useState('');
   const [formData, setFormData] = useState({
     winner: '',
     mostSixes: '',
@@ -41,20 +44,38 @@ function MatchPrediction() {
       await axios.post(`/match/predict/${matchId}`, formData, {
         headers: { 'x-auth-token': token }
       });
-      alert('Prediction submitted!');
-      navigate('/');
+  
+      setPopupText("✅ Prediction Submitted Successfully!");
+      setPopupType("success");
+      setShowPopup(true);
+      setTimeout(() => {
+        setShowPopup(false);
+        navigate('/');
+      }, 2000);
     } catch (err) {
       console.error(err.response ? err.response.data : err.message);
-      alert(err.response ? err.response.data.msg : 'Error submitting prediction');
+      setPopupText("❌ Error Submitting Prediction");
+      setPopupType("error");
+      setShowPopup(true);
+      setTimeout(() => {
+        setShowPopup(false);
+      }, 3000);
     }
   };
 
   return (
     <div className="match-prediction-container">
+    {showPopup && (
+  <div className="popup-overlay">
+    <div className={`popup-box ${popupType}`}>{popupText}</div>
+  </div>
+)}
+
       <h2>Make Your Predictions</h2>
       {match ? (
         <div>
           <h3>Today's Match: {match.team1} vs {match.team2}</h3>
+           
           <form onSubmit={onSubmit}>
             <div className="form-group">
               <label>Winner:</label>
